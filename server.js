@@ -2,6 +2,7 @@ var http = require('http'),
     cicada = require('cicada'),
     ws = require('websocket.io'),
     stream = require('stream'),
+    moment = require('moment'),
     passStream = require('pass-stream');
 
 /**
@@ -38,7 +39,7 @@ ci.on('commit', function (commit) {
     var test = commit.run('test').on('exit', function (code) {
       var status = code === 0 ? 'PASSED' : 'FAILED';
       output.log(commit.hash + ' ' + status);
-      output.write('Done.\n\n\n\n');
+      output.write('Done: ' + moment().format('MMMM Do YYYY, H:mm:ssa') + '\n\n');
     });
     test.stdout.pipe(output, { end: false });
     test.stderr.pipe(output, { end: false });
