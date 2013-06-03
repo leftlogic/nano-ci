@@ -1,12 +1,13 @@
 var http = require('http'),
     cicada = require('cicada'),
     ws = require('websocket.io'),
-    stream = require('stream');
+    stream = require('stream'),
+    passStream = require('pass-stream');
 
 /**
  * Setup output stream
  */
-var output = new stream.PassThrough(),
+var output = passStream(),
     buffer = [];
 
 output.on('data', function (data) {
